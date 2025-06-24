@@ -22,10 +22,10 @@ function App() {
               {/* Header */}
               <div className="text-center py-5 px-4">
                 <h1 className="text-3xl font-bold text-primary mb-3">
-                  時間認識を計算する
+                  ジャネー時間を計算する
                 </h1>
                 <p className="text-base text-primary px-4">
-                  年齢の代わりに生年月日を入力し、ジャネーの法則に基づく認識時間を計算します。
+                  生年月日を入力し、ジャネーの法則に基づく認識時間を計算します。
                 </p>
               </div>
 
