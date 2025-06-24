@@ -1,14 +1,18 @@
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts'
+import { Line, XAxis, YAxis, ResponsiveContainer, Tooltip, Area, ComposedChart } from 'recharts'
 import { JanetLawResult } from '../utils/janetLaw'
+import { useState } from 'react'
 
 interface ResultDisplayProps {
   result: JanetLawResult
 }
 
 export default function ResultDisplay({ result }: ResultDisplayProps) {
+  const [hoveredYear, setHoveredYear] = useState<number | null>(null)
+
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload
+      setHoveredYear(data.year)
       return (
         <div className="bg-white border border-border rounded-lg p-3 shadow-lg">
           <p className="text-sm font-medium text-primary">{label}年（{data.age}歳）</p>
@@ -17,8 +21,20 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
           </p>
         </div>
       )
+    } else {
+      setHoveredYear(null)
     }
     return null
+  }
+
+  // ホバー時の塗りつぶし用データを生成
+  const getAreaData = () => {
+    if (!hoveredYear) return result.yearlyData.map(d => ({ ...d, fillValue: 0 }))
+    
+    return result.yearlyData.map(d => ({
+      ...d,
+      fillValue: d.year <= hoveredYear ? d.value : null
+    }))
   }
 
   return (
@@ -36,20 +52,29 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
           <div className="pt-4">
             <div className="h-37">
               <ResponsiveContainer width="100%" height={148}>
-                <LineChart data={result.yearlyData}>
+                <ComposedChart data={getAreaData()}>
                   <defs>
                     <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                       <stop offset="0%" stopColor="#EBEDF2" stopOpacity={1} />
                       <stop offset="50%" stopColor="#EBEDF2" stopOpacity={0} />
                     </linearGradient>
+                    <linearGradient id="fillGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#088738" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="#088738" stopOpacity={0.1} />
+                    </linearGradient>
                   </defs>
+                  <Area
+                    type="monotone"
+                    dataKey="fillValue"
+                    stroke="none"
+                    fill="url(#fillGradient)"
+                  />
                   <Line
                     type="monotone"
                     dataKey="value"
                     stroke="#5C738A"
                     strokeWidth={3}
                     dot={false}
-                    fill="url(#lineGradient)"
                   />
                   <XAxis 
                     dataKey="year" 
@@ -60,7 +85,7 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
                   />
                   <YAxis hide />
                   <Tooltip content={<CustomTooltip />} />
-                </LineChart>
+                </ComposedChart>
               </ResponsiveContainer>
             </div>
           </div>
