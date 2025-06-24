@@ -18,16 +18,6 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
               {result.cumulativeDays.toLocaleString()}日
             </p>
           </div>
-          <div className="flex justify-between items-center">
-            <div>
-              <span className="text-base text-secondary">過去10年間</span>
-            </div>
-            <div>
-              <span className="text-base font-medium text-success">
-                +{result.pastTenYearsPercentage}%
-              </span>
-            </div>
-          </div>
           <div className="pt-4">
             <div className="h-37">
               <ResponsiveContainer width="100%" height={148}>

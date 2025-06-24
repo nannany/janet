@@ -35,20 +35,18 @@ export function calculateJanetLaw(birthdate: Date): JanetLawResult {
   
   const pastTenYearsPercentage = (pastTenYearsDays / cumulativeDays) * 100
   
-  // チャート用のデータ（過去10年分）
+  // チャート用のデータ（生まれた年から現在まで）
   const yearlyData = []
-  const startYear = Math.max(2014, getYear(today) - 9)
-  const endYear = getYear(today)
+  const birthYear = getYear(birthdate)
+  const currentYear = getYear(today)
   
-  for (let year = startYear; year <= endYear; year++) {
-    const ageAtYear = year - getYear(birthdate)
-    if (ageAtYear > 0) {
-      const subjectiveValue = 1 / ageAtYear
-      yearlyData.push({
-        year,
-        value: subjectiveValue * 100 // パーセンテージ表示用
-      })
-    }
+  for (let year = birthYear + 1; year <= currentYear; year++) {
+    const ageAtYear = year - birthYear
+    const subjectiveValue = 1 / ageAtYear
+    yearlyData.push({
+      year,
+      value: subjectiveValue * 100 // パーセンテージ表示用
+    })
   }
   
   return {
