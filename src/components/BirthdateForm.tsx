@@ -9,10 +9,27 @@ export default function BirthdateForm({ onSubmit }: BirthdateFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (birthdateInput) {
-      const date = new Date(birthdateInput)
-      if (!isNaN(date.getTime())) {
-        onSubmit(date)
+    if (birthdateInput.trim()) {
+      const dateString = birthdateInput.trim()
+      
+      // yyyyMMdd形式のみ対応
+      const datePattern = /^(\d{4})(\d{2})(\d{2})$/
+      const match = dateString.match(datePattern)
+      
+      if (match) {
+        const year = parseInt(match[1])
+        const month = parseInt(match[2]) - 1 // 月は0から始まる
+        const day = parseInt(match[3])
+        
+        const parsedDate = new Date(year, month, day)
+        
+        if (!isNaN(parsedDate.getTime())) {
+          onSubmit(parsedDate)
+        } else {
+          alert('正しい日付を入力してください（例: 19900101）')
+        }
+      } else {
+        alert('yyyyMMdd形式で入力してください（例: 19900101）')
       }
     }
   }
@@ -26,10 +43,10 @@ export default function BirthdateForm({ onSubmit }: BirthdateFormProps) {
           </label>
           <div className="bg-background border border-border rounded-xl p-4">
             <input
-              type="date"
+              type="text"
               value={birthdateInput}
               onChange={(e) => setBirthdateInput(e.target.value)}
-              placeholder="生年月日を入力してください"
+              placeholder="19900101"
               className="w-full bg-transparent text-base text-secondary placeholder-secondary outline-none"
             />
           </div>
