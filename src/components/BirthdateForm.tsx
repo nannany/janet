@@ -46,6 +46,11 @@ export default function BirthdateForm({ onSubmit }: BirthdateFormProps) {
               type="text"
               value={birthdateInput}
               onChange={(e) => setBirthdateInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSubmit(e)
+                }
+              }}
               placeholder="19900101"
               className="w-full bg-transparent text-base text-secondary placeholder-secondary outline-none"
             />
