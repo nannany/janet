@@ -11,7 +11,7 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
       const data = payload[0].payload
       return (
         <div className="bg-white border border-border rounded-lg p-3 shadow-lg">
-          <p className="text-sm font-medium text-primary">{label}年</p>
+          <p className="text-sm font-medium text-primary">{label}年（{data.age}歳）</p>
           <p className="text-sm text-secondary">
             累積日: {data.cumulativeDays.toLocaleString()}日
           </p>

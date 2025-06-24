@@ -7,6 +7,7 @@ export interface JanetLawResult {
     year: number
     value: number
     cumulativeDays: number
+    age: number
   }>
 }
 
@@ -43,7 +44,8 @@ export function calculateJanetLaw(birthdate: Date): JanetLawResult {
     yearlyData.push({
       year,
       value: subjectiveValue * 100, // パーセンテージ表示用
-      cumulativeDays: Math.round(cumulativeDaysUpToYear)
+      cumulativeDays: Math.round(cumulativeDaysUpToYear),
+      age: ageAtYear
     })
   }
   
