@@ -6,6 +6,7 @@ export interface JanetLawResult {
   yearlyData: Array<{
     year: number
     value: number
+    cumulativeDays: number
   }>
 }
 
@@ -31,9 +32,18 @@ export function calculateJanetLaw(birthdate: Date): JanetLawResult {
   for (let year = birthYear + 1; year <= currentYear; year++) {
     const ageAtYear = year - birthYear
     const subjectiveValue = 1 / ageAtYear
+    
+    // その年までの累積日数を計算
+    let cumulativeDaysUpToYear = 0
+    for (let age = 1; age <= ageAtYear; age++) {
+      const yearlySubjectiveTime = 1 / age
+      cumulativeDaysUpToYear += yearlySubjectiveTime * 365.25
+    }
+    
     yearlyData.push({
       year,
-      value: subjectiveValue * 100 // パーセンテージ表示用
+      value: subjectiveValue * 100, // パーセンテージ表示用
+      cumulativeDays: Math.round(cumulativeDaysUpToYear)
     })
   }
   

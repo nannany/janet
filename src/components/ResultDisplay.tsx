@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts'
 import { JanetLawResult } from '../utils/janetLaw'
 
 interface ResultDisplayProps {
@@ -6,6 +6,21 @@ interface ResultDisplayProps {
 }
 
 export default function ResultDisplay({ result }: ResultDisplayProps) {
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload
+      return (
+        <div className="bg-white border border-border rounded-lg p-3 shadow-lg">
+          <p className="text-sm font-medium text-primary">{label}年</p>
+          <p className="text-sm text-secondary">
+            累積日: {data.cumulativeDays.toLocaleString()}日
+          </p>
+        </div>
+      )
+    }
+    return null
+  }
+
   return (
     <div className="flex flex-wrap gap-4 justify-stretch">
       <div className="flex-1 min-w-80">
@@ -44,6 +59,7 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
                     className="font-manrope"
                   />
                   <YAxis hide />
+                  <Tooltip content={<CustomTooltip />} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
