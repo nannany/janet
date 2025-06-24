@@ -1,9 +1,8 @@
-import { differenceInYears, subYears, getYear } from 'date-fns'
+import { differenceInYears, getYear } from 'date-fns'
 
 export interface JanetLawResult {
   cumulativeDays: number
   yearsLived: number
-  pastTenYearsPercentage: number
   yearlyData: Array<{
     year: number
     value: number
@@ -23,17 +22,6 @@ export function calculateJanetLaw(birthdate: Date): JanetLawResult {
     cumulativeDays += subjectiveTime * 365.25 // 1年を365.25日として計算
   }
   
-  // 過去10年間の割合計算
-  const tenYearsAgo = subYears(today, 10)
-  const tenYearsAgoAge = Math.max(1, differenceInYears(tenYearsAgo, birthdate))
-  
-  let pastTenYearsDays = 0
-  for (let age = tenYearsAgoAge; age <= yearsLived; age++) {
-    const subjectiveTime = 1 / age
-    pastTenYearsDays += subjectiveTime * 365.25
-  }
-  
-  const pastTenYearsPercentage = (pastTenYearsDays / cumulativeDays) * 100
   
   // チャート用のデータ（生まれた年から現在まで）
   const yearlyData = []
@@ -52,7 +40,6 @@ export function calculateJanetLaw(birthdate: Date): JanetLawResult {
   return {
     cumulativeDays: Math.round(cumulativeDays),
     yearsLived,
-    pastTenYearsPercentage: Math.round(pastTenYearsPercentage),
     yearlyData
   }
 }
