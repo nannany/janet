@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="240"
+        height="240"
+        viewBox="0 0 120 120"
+        stroke="#222"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+
+    <!-- 顔の外形 -->
+    <ellipse cx="60" cy="42" rx="24" ry="28" fill="#f2e5d4" stroke="none"/>
+
+    <!-- 生え際（禿頂と側頭部の髪） -->
+    <path d="
+      M42 24
+      Q60 14 78 24          <!-- ハゲの頂部 -->
+      Q75 28 74 33          <!-- 右側頭部へ降りる -->
+      Q66 28 60 25
+      Q54 28 46 33
+      Q45 28 42 24" />
+
+  <!-- もみあげ（チョップ状） -->
+  <path d="M42 45 Q38 58 42 65" />
+    <path d="M78 45 Q82 58 78 65" />
+
+    <!-- 眉 -->
+    <path d="M50 37 Q52 35 56 37" />
+    <path d="M64 37 Q68 35 70 37" />
+
+    <!-- 眼 -->
+    <circle cx="54" cy="42" r="2.2" fill="#222"/>
+    <circle cx="66" cy="42" r="2.2" fill="#222"/>
+
+    <!-- 鼻 -->
+    <path d="M60 44 v8" />
+
+    <!-- 口ひげ -->
+    <path d="M46 55 Q60 60 74 55" stroke-width="3.2" />
+
+    <!-- 口（線のみ・控えめ） -->
+    <path d="M50 62 Q60 65 70 62" />
+
+    <!-- 蝶ネクタイ -->
+    <polygon points="55,70 45,75 55,80" fill="#222"/>
+    <polygon points="65,70 75,75 65,80" fill="#222"/>
+    <rect x="57" y="72" width="6" height="6" fill="#222"/>
+
+    <!-- 上着の襟 -->
+    <path d="M40 72 L30 96" />
+    <path d="M80 72 L90 96" />
+
+    <!-- ジャケット前面 -->
+    <path d="M30 96 Q60 112 90 96" />
+    <line x1="60" y1="72" x2="60" y2="112" />
+
+    <!-- 燕尾（控えめにツインテール） -->
+    <path d="M60 112 L47 118 L60 118" />
+    <path d="M60 112 L73 118 L60 118" />
+</svg>
